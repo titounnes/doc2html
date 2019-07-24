@@ -50,11 +50,13 @@
                                         var ddStyle = dd.childNodes[0].childNodes[0];
                                         switch(ddStyle.nodeName){
                                             case 'rFonts' :
-                                                var font = ddStyle.attributes.cs.nodeValue;//.split(' ')[0];
-                                                $('style').append('p{font-family:'+font+'}')
+                                                if(typeof ddStyle.attributes.cs){
+                                                    var font = ddStyle.attributes.cs.nodeValue;//.split(' ')[0];
+                                                    $('style').append('p{font-family:'+font+'}')
+                                                }
                                                 break;
                                             default :
-                                            console.log(ddStyle.nodeName)
+                                                //console.log(ddStyle.nodeName)
                                                 break;
                                         }
                                     }
@@ -99,7 +101,7 @@
                             //console.log(ss.childNodes, ssIndex)
                         //})
                     }
-                    console.log(st)                    
+                    //console.log(st)                    
                 })
                 return 1;
                 $.each($.parseHTML(text), function(i, style){
@@ -235,7 +237,10 @@
                                     })
                                 }
                                 for(i=1;i<rLength;i++){
-                                    $('#'+sId).append(r.childNodes[i].childNodes[0].nodeValue);
+                                    if(typeof r.childNodes[i].childNodes[0] != 'undefined'){
+                                        $('#'+sId).append(r.childNodes[i].childNodes[0].nodeValue);
+                                    }
+                                    
                                 }
                             }else if(rLength==1){
                                 if(r.childNodes.length>1){
@@ -247,166 +252,8 @@
                         }
                     })
                 })
-                return 1;
-                for(i=0; i < pLength; i++){
-                    $('#result').append($('<p>', {
-                        id : 'par_'+i,
-                    }))
-
-
-                    console.log(paragraph[i])
-                }
-                //console.log(body.childNodes.length)
-                $.each(body, function(pKey, pValue){
-                    //console.log(pValue.childNodes)
-                })
-                return 1;
-
-                $.each($.parseHTML(text), function(i, doc){
-                    if(doc.nodeName=='DOCUMENT'){
-                        $.each($.parseHTML(doc.innerHTML), function(j, p){
-                            if(p.nodeName=='P'){
-                                var par = 'p_'+no;
-                                $fileContent.append($('<p>', {
-                                    id: par,
-                                }))
-                                $.each($.parseHTML(p.innerHTML), function(k, r){
-                                    if(r.nodeName=='PPR'){
-                                        $.each($.parseHTML(r.innerHTML), function(l, s){
-                                            switch(s.nodeName){
-                                                case 'PSTYLE' : 
-                                                    $('#'+par).addClass($(s).attr('val'));
-                                                    break;
-                                                case 'SPACING' :
-                                                    if($(s).attr('before')>0){
-                                                        $('#'+par).css({'margin-top':$(s).attr('before')/24+'px'})
-                                                    }
-                                                    if($(s).attr('after')>0){
-                                                        $('#'+par).css({'margin-bottom':$(s).attr('after')/24+'px'})
-                                                    }
-                                                    break;
-                                                case 'RPR' :
-                                                    $('#'+par).append(s.innerHTML)
-                                                    break;
-                                                case 'NUMPR' :
-                                                    //Citation
-                                                    //console.log(s.innerHTML);
-                                                    break;
-                                                case 'IND' :
-                                                    if($(s).attr('left')*1>0 && $(s).attr('hanging')*1>0){
-                                                        $('#'+par).css({'margin-left':$(s).attr('left')/(24)+'px','text-indent':$(s).attr('left')/(-24)+'px'})
-                                                    }
-                                                    break;
-                                                case 'JC' :
-                                                    $('#'+par).css({'text-align':'justify'})
-                                                    break;
-                                                case 'BIDI' :
-                                                    //console.log(s);
-                                                    break;
-                                                case 'WIDOWCONTROL' :
-                                                    //console.log(s);
-                                                    break;
-                                                default : console.log(s.nodeName);
-                                                    break;
-                                            }
-                                        })
-                                    }
-                                    else if(r.nodeName=='R'){
-                                        var noo = 0;
-                                        $.each($.parseHTML(r.innerHTML), function(l, t){
-                                            var row = 's_'+no;
-                                            if(typeof $('#'+row).html()=='undefined'){
-                                                $('#'+par).append($('<span>',{
-                                                    id: row,
-                                                }))
-                                            }
-                                            if(t.nodeName=='RPR'){
-                                                $.each($(t.innerHTML), function(m, u){
-                                                    switch(u.nodeName){
-                                                        case 'I' :
-                                                            $('#'+row).css({'font-style':'italic'});
-                                                            break;
-                                                        case 'B' :
-                                                            $('#'+row).css({'font-weight':'bold'});
-                                                            break;
-                                                        case 'T' : 
-                                                            $('#'+row).append(u.innerHTML);
-                                                            noo++;
-                                                            break;
-                                                        case 'VERTALIGN' :
-                                                            if($(u).attr('val')=='superscript'){
-                                                                $('#'+row).css({'vertical-align':'super','font-size':'80%'});
-                                                            }else if($(u).attr('val')=='subscript'){
-                                                                $('#'+row).css({'vertical-align':'sub','font-size':'80%'});
-                                                            }
-                                                            break;
-                                                        default :
-                                                            //console.log(u.nodeName);
-                                                            //console.log(u)
-                                                            break;
-                                                    }
-                                                })
-                                            }else if(t.nodeName=='T'){ 
-                                                $('#'+row).append(t.innerHTML);    
-                                                no++;  
-                                                
-                                            }
-                                            
-                                        })
-                                        //$('#no_'+no).append(r.innerHTML)
-                                        //console.log(r.innerHTML)
-                                    }
-                                })
-                            }
-                        })
-                        
-                    }
-                    //console.log(i, v, v.nodeName)
-                })
-                /*parser = new DOMParser();
-                xmlDoc = parser.parseFromString(text,"text/html");
-                var body = xmlDoc.getElementsByTagName("body")[0];*/
-                /*$.each($.parseHTML(body), function(j, v) {
-                    console.log(v)
-                })*/
-                /*
-                $.each(body, function(i, p){
-                    //console.log(i, p)
-                    if(i=='innerText'){
-                        //console.log(p)
-                    }
-                    if(i=='innerHTML'){
-                        console.log(p)
-                    }
-                    
-
-                })*/
-                /*$fileContent.append($('<div>',{
-                    'class' : 'small',
-                    text : text,
-                }))*/
-                //console.log(body)
-            })
-
-            JSZip.loadAsync(f)
-            .then(function(zip){
-                var dateAfter = new Date();
-                $title.append($('<span>', {
-                    'class' : 'small',
-                    text: '(loaded word/styles.xml in '+ (dateAfter - dateBefore) +' ms)'
-                }))
-                return zip.file('word/styles.xml').async('string')
-            }).then(function(text){
-                //console.log(text)
-            })
-
-            
-        }/*,function(evt){
-            $result.append($('<div>', {
-                'class' : 'alert alert-danger',
-                text: 'Error Reading',
-            }))
-        }*/
+            })            
+        }
 
         var files = evt.target.files;
         for(var i= 0; i < files.length; i++){
