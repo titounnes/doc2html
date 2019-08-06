@@ -18,7 +18,7 @@ docParser.handleFile = function(f){
     })
     var fileContent = $('<div>');
     
-    result.html(title);
+    result.html('');
 
     result.append(fileContent)
     docParser.read = true;

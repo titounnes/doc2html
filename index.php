@@ -14,6 +14,18 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 <style>
+body{
+    padding: 20px 20px 20px 20px;
+}
+#result{
+    border: 1px solid #000000;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
+}
+p{
+    margin-left: 80px;
+    margin-right:80px;
+}
 .Title{
     font-size: 24px;
     font-weight:bold;
@@ -52,10 +64,10 @@
     text-indent:80px;
 }
 .borderTop{
-    border-top: 3px solid #1b0101;
+    border-top: 1px solid #1b0101;
 }
 .borderBottom{
-    border-bottom: 3px solid #1b0101;
+    border-bottom: 1px solid #1b0101;
 }
 </style>
 </head>
@@ -66,7 +78,7 @@
     <input type="file" id="file" name="file" multiple /><br>
     <div id="result_block" class="hidden">
         <h3>Content</h3>
-        <div id="result"></div>
+        <div id="result">Ready</div>
     </div>
 </body>
 <script src="/js/jquery.min.js"></script>
