@@ -157,7 +157,8 @@ docParser.body = function(xml){
                                 }))
                             }
                             if(typeof tc.childNodes[1].childNodes[1] == 'undefined'){
-                                docParser.tc('#tc_'+pIndex+'_'+iTr+'_'+iTc, ' ')
+                                docParser.tc('#tc_'+pIndex+'_'+iTr+'_'+iTc, ' ', tc.childNodes[0].childNodes[1], '#tr_'+pIndex+'_'+iTr)
+                                //console.log('#tr_'+pIndex+'_'+iTr,tc.childNodes[0].childNodes[1])
                             }else{
                                 docParser.tc('#tc_'+pIndex+'_'+iTr+'_'+iTc, tc.childNodes[1].childNodes[1].childNodes, tc.childNodes[0].childNodes[1], '#tr_'+pIndex+'_'+iTr)
                             }                            
@@ -336,6 +337,17 @@ docParser.drawing = function(target, data){
 docParser.tc = function(target, data, border, parent){
     if(data == ' '){
         $(target).html('&nbsp;')
+        border.childNodes.forEach(function(tpr){
+            switch(tpr.nodeName){
+                case 'top' : 
+                    $(parent).addClass('borderTop');
+                    break;
+                case 'bottom':
+                    $(parent).addClass('borderBottom');
+                    break;
+            }
+            
+        })
     }else{
         $(target).html(data[1].childNodes[0].nodeValue)
         border.childNodes.forEach(function(tpr){
@@ -352,5 +364,3 @@ docParser.tc = function(target, data, border, parent){
 
     }    
 }
-
-//docParser.tc = 

@@ -11,6 +11,8 @@
         <meta content='Indonesia' name='geo.placename'/>
         <meta name="keywords" content="Editor">
         <meta name="author" content="Harjito, harjito@mail.unnes.ac.id">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 <style>
 .Title{
     font-size: 24px;
@@ -52,11 +54,15 @@
 .borderTop{
     border-top: 3px solid #1b0101;
 }
+.borderBottom{
+    border-bottom: 3px solid #1b0101;
+}
 </style>
 </head>
 <body>
+    <h1 class='title'>Convert DOCX to HTML</h1>
     <h3>Choose File</h3>
-    <button id="reload">Reload</button>
+    <button id="reload" class="button">Reload</button>
     <input type="file" id="file" name="file" multiple /><br>
     <div id="result_block" class="hidden">
         <h3>Content</h3>
